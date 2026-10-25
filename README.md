@@ -191,6 +191,9 @@ kubectl get limitrange -n miniproj2
 
 ![Configuration du namespace et des quotas](screenshots/phase2_quota.png)
 
+![Configuration du namespace et des quotas](screenshots/phase2_quota2.png)
+
+
 ---
 
 ### Phase 3 — Configuration avec ConfigMap et Secret
@@ -224,6 +227,8 @@ kubectl get secrets -n miniproj2
 **Capture d'écran :**
 
 ![Configuration ConfigMap et Secret](screenshots/phase3_config_secret.png)
+![Configuration ConfigMap et Secret](screenshots/phase3_config_secret2.png)
+
 
 ---
 
@@ -250,6 +255,8 @@ kubectl get services -n miniproj2
 **Capture d'écran :**
 
 ![Déploiement du StatefulSet PostgreSQL et du PVC](screenshots/phase4_statefulset.png)
+![Déploiement du StatefulSet PostgreSQL et du PVC](screenshots/phase4_statefulset2.png)
+
 
 ---
 
