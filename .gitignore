@@ -1,0 +1,12 @@
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Secrets (on ne pousse JAMAIS les vrais secrets)
+k8s/10-config/secret.yaml
+*.pem
+*.key
+
+# Fichiers temporaires
+*.log
+*.tmp

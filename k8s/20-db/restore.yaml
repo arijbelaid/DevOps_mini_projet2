@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: restore-job
+spec:
+  restartPolicy: Never
+  containers:
+    - name: restore
+      image: postgres:16-alpine
+      command: ["/bin/sh", "-c"]
+      args:
+        - |
+          echo "--- Suppression de la table existante (simulation de désastre) ---"
+          psql -h db -U $POSTGRES_USER -d $POSTGRES_DB -c "DROP TABLE IF EXISTS contacts CASCADE;"
+          
+          LATEST_FILE=$(ls -t /backup/dump-*.sql | head -n 1)
+          echo "--- Restauration depuis $LATEST_FILE ---"
+          psql -h db -U $POSTGRES_USER -d $POSTGRES_DB < "$LATEST_FILE"
+          echo "--- Restauration terminée ! ---"
+      env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: DB_USER
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: DB_NAME
+        - name: PGPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: DB_PASSWORD
+      volumeMounts:
+        - name: backup
+          mountPath: /backup
+  volumes:
+    - name: backup
+      persistentVolumeClaim:
+        claimName: backup-pvc

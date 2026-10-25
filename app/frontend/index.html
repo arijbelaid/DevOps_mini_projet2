@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionnaire de Contacts</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg: #f3f4f6;
+            --card-bg: #ffffff;
+            --text: #1f2937;
+            --danger: #ef4444;
+            --success: #10b981;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg); color: var(--text); padding: 2rem; }
+        
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 { text-align: center; margin-bottom: 2rem; color: var(--primary); font-size: 2.5rem; }
+        
+        /* Formulaire */
+        .form-card { background: var(--card-bg); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); margin-bottom: 2rem; display: flex; flex-wrap: wrap; gap: 1rem; }
+        .form-group { flex: 1; min-width: 200px; display: flex; flex-direction: column; }
+        label { font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; color: #4b5563; }
+        input { padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px; outline: none; transition: border 0.2s; }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2); }
+        
+        .btn { padding: 0.75rem 1.5rem; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s; color: white; }
+        .btn-primary { background: var(--primary); }
+        .btn-primary:hover { background: var(--primary-hover); }
+        .btn-edit { background: #f59e0b; margin-right: 0.5rem; }
+        .btn-delete { background: var(--danger); }
+        
+        /* Tableau */
+        .table-container { background: var(--card-bg); border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th { background: #f9fafb; padding: 1rem; font-weight: 600; color: #6b7280; border-bottom: 2px solid #e5e7eb; }
+        td { padding: 1rem; border-bottom: 1px solid #e5e7eb; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover { background-color: #f9fafb; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📇 Mes Contacts</h1>
+        
+        <div class="form-card">
+            <input type="hidden" id="contact-id">
+            <div class="form-group">
+                <label>Nom</label>
+                <input type="text" id="nom" placeholder="Ex: Dupont">
+            </div>
+            <div class="form-group">
+                <label>Prénom</label>
+                <input type="text" id="prenom" placeholder="Ex: Jean">
+            </div>
+            <div class="form-group">
+                <label>Âge</label>
+                <input type="number" id="age" placeholder="Ex: 25">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="email" placeholder="Ex: jean@email.com">
+            </div>
+            <div style="display: flex; align-items: flex-end; width: 100%;">
+                <button class="btn btn-primary" id="btn-save" onclick="sauvegarderContact()" style="width: 100%;">Ajouter le contact</button>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Âge</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="liste-contacts">
+                    <!-- Les contacts s'afficheront ici -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = '/api/contacts';
+
+        async function chargerContacts() {
+            const res = await fetch(API_URL);
+            const contacts = await res.json();
+            const tbody = document.getElementById('liste-contacts');
+            tbody.innerHTML = '';
+            
+            contacts.forEach(c => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>${c.nom}</strong></td>
+                    <td>${c.prenom}</td>
+                    <td>${c.age} ans</td>
+                    <td>${c.email}</td>
+                    <td>
+                        <button class="btn btn-edit" onclick="editerContact(${c.id}, '${c.nom}', '${c.prenom}', ${c.age}, '${c.email}')">✏️ Modifier</button>
+                        <button class="btn btn-delete" onclick="supprimerContact(${c.id})">🗑️ Supprimer</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        async function sauvegarderContact() {
+            const id = document.getElementById('contact-id').value;
+            const nom = document.getElementById('nom').value;
+            const prenom = document.getElementById('prenom').value;
+            const age = document.getElementById('age').value;
+            const email = document.getElementById('email').value;
+
+            if (!nom || !prenom || !email) {
+                alert("Veuillez remplir tous les champs (sauf l'âge s'il est facultatif).");
+                return;
+            }
+
+            const data = { nom, prenom, age: parseInt(age) || 0, email };
+            
+            if (id) {
+                // Modification
+                await fetch(`${API_URL}/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                document.getElementById('btn-save').innerText = "Ajouter le contact";
+            } else {
+                // Ajout
+                await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+            }
+            
+            // Reset du formulaire
+            document.getElementById('contact-id').value = '';
+            document.getElementById('nom').value = '';
+            document.getElementById('prenom').value = '';
+            document.getElementById('age').value = '';
+            document.getElementById('email').value = '';
+            
+            chargerContacts();
+        }
+
+        function editerContact(id, nom, prenom, age, email) {
+            document.getElementById('contact-id').value = id;
+            document.getElementById('nom').value = nom;
+            document.getElementById('prenom').value = prenom;
+            document.getElementById('age').value = age;
+            document.getElementById('email').value = email;
+            
+            const btn = document.getElementById('btn-save');
+            btn.innerText = "Enregistrer les modifications";
+            btn.classList.replace('btn-primary', 'btn-edit');
+            window.scrollTo(0, 0); // Remonte en haut de page
+        }
+
+        async function supprimerContact(id) {
+            if (confirm("Voulez-vous vraiment supprimer ce contact ?")) {
+                await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+                chargerContacts();
+            }
+        }
+
+        // Charger au démarrage
+        chargerContacts();
+    </script>
+</body>
+</html>
