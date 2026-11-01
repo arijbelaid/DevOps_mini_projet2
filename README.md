@@ -1,5 +1,3 @@
- <div align="center">
-
 # 🚀 Mini-Projet 2 — Application 3-Tiers Sécurisée et Persistante
 
 ### Déploiement et sécurisation avec Kubernetes (k3s)
@@ -10,17 +8,8 @@
 ![Python](https://img.shields.io/badge/Python-Backend-3776AB?style=for-the-badge&logo=python)
 ![DevOps](https://img.shields.io/badge/DevOps-Cloud-00A98F?style=for-the-badge)
 
-**Cours : Orchestration de conteneurs avec Kubernetes**
+📄 **Rapport du mini-projet :** [Consulter le rapport PDF](mini_projet2.pdf)
 
-**Formation : Master DevOps & Cloud**
-
-**Établissement : ISET Tozeur**
-
-**Réalisé par : Arij Belaid**
-
-**Année universitaire : 2026–2027**
-
-</div>
 
 ---
 
@@ -197,9 +186,9 @@ Construction des composants avec Docker Compose et vérification du fonctionneme
 
 **Preuves :**
 
-![Build Docker Compose](screenshots/01-docker-compose-build.png)
+![Build Docker Compose](screenshots/01-docker-compose-build.png.jpg)
 
-![Application locale](screenshots/02-application-local-mes-contacts.png)
+![Application locale](screenshots/02-application-local-mes-contacts.png.jpg)
 
 ### Phase 1 — Conteneurisation et publication
 
@@ -212,9 +201,9 @@ Images applicatives :
 
 **Preuves :**
 
-![Tagging des images](screenshots/03-docker-image-tagging.png)
+![Tagging des images](screenshots/03-docker-image-tagging.png.jpg)
 
-![Publication Docker Hub](screenshots/04-dockerhub-image-push.png)
+![Publication Docker Hub](screenshots/04-dockerhub-image-push.png.jpg)
 
 ### Phase 2 — Namespace, ResourceQuota et LimitRange
 
@@ -222,13 +211,13 @@ Création du namespace `miniproj2`, configuration des quotas et définition des 
 
 **Preuves :**
 
-![ResourceQuota YAML](screenshots/05-resourcequota-yaml.png)
+![ResourceQuota YAML](screenshots/05-resourcequota-yaml.png.jpg)
 
-![Application des quotas](screenshots/06-namespace-quota-application.png)
+![Application des quotas](screenshots/06-namespace-quota-application.png.jpg)
 
-![Vérification du quota](screenshots/07-resourcequota-verification.png)
+![Vérification du quota](screenshots/07-resourcequota-verification.png.jpg)
 
-![Test LimitRange](screenshots/08-limitrange-test.png)
+![Test LimitRange](screenshots/08-limitrange-test.png.jpg)
 
 ### Phase 3 — ConfigMap et Secret
 
@@ -238,15 +227,15 @@ Un fichier modèle est utilisé pour Git afin de ne pas publier les véritables 
 
 **Preuves :**
 
-![ConfigMap](screenshots/09-configmap-yaml.png)
+![ConfigMap](screenshots/09-configmap-yaml.png.jpg)
 
-![Création du Secret](screenshots/10-kubernetes-secret-creation.png)
+![Création du Secret](screenshots/10-kubernetes-secret-creation.png.jpg)
 
-![Secret modèle](screenshots/11-secret-example-git.png)
+![Secret modèle](screenshots/11-secret-example-git.png.jpg)
 
-![Application ConfigMap](screenshots/12-configmap-application.png)
+![Application ConfigMap](screenshots/12-configmap-application.png.jpg)
 
-![Vérification ConfigMap et Secret](screenshots/13-configmap-secret-verification.png)
+![Vérification ConfigMap et Secret](screenshots/13-configmap-secret-verification.png.jpg)
 
 ### Phase 4 — Base de données avec StatefulSet
 
@@ -256,13 +245,13 @@ Configuration du volume persistant pour conserver les données de la base.
 
 **Preuves :**
 
-![Service Headless](screenshots/14-database-headless-service.png)
+![Service Headless](screenshots/14-database-headless-service.png.jpg)
 
-![StatefulSet](screenshots/15-postgresql-statefulset-yaml.png)
+![StatefulSet](screenshots/15-postgresql-statefulset-yaml.png.jpg)
 
-![Application des manifestes](screenshots/16-database-manifests-application.png)
+![Application des manifestes](screenshots/16-database-manifests-application.png.jpg)
 
-![Vérification PostgreSQL](screenshots/17-database-pod-verification.png)
+![Vérification PostgreSQL](screenshots/17-database-pod-verification.png.jpg)
 
 ### Phase 5 — Déploiement API et frontend
 
@@ -272,11 +261,11 @@ Consultation des logs de l'API pour vérifier les requêtes `/health` et `/ready
 
 **Preuves :**
 
-![Déploiement API frontend](screenshots/18-api-frontend-deployment.png)
+![Déploiement API frontend](screenshots/18-api-frontend-deployment.png.jpg)
 
-![Statut des Pods](screenshots/19-kubernetes-pods-status.png)
+![Statut des Pods](screenshots/19-kubernetes-pods-status.png.jpg)
 
-![Logs API](screenshots/20-api-logs-health-ready.png)
+![Logs API](screenshots/20-api-logs-health-ready.png.jpg)
 
 ### Phase 6 — Ingress
 
@@ -284,11 +273,11 @@ Configuration de Traefik et création de l'Ingress pour permettre l'accès à l'
 
 **Preuves :**
 
-![Ingress YAML](screenshots/21-ingress-yaml.png)
+![Ingress YAML](screenshots/21-ingress-yaml.png.jpg)
 
-![Application Ingress](screenshots/22-ingress-application.png)
+![Application Ingress](screenshots/22-ingress-application.png.jpg)
 
-![Test Ingress](screenshots/23-ingress-curl-test.png)
+![Test Ingress](screenshots/23-ingress-curl-test.png.jpg)
 
 ![Application accessible](screenshots/24-application-access-ingress.png)
 
@@ -302,15 +291,15 @@ Test de la résilience des Pods API.
 
 **Preuves :**
 
-![Contacts avant suppression](screenshots/25-contacts-before-pod-deletion.png)
+![Contacts avant suppression](screenshots/25-contacts-before-pod-deletion.png.jpg)
 
-![Suppression du Pod](screenshots/26-database-pod-deletion.png)
+![Suppression du Pod](screenshots/26-database-pod-deletion.png.jpg)
 
-![Recréation du Pod](screenshots/27-database-pod-recreation.png)
+![Recréation du Pod](screenshots/27-database-pod-recreation.png.jpg)
 
-![Persistance des données](screenshots/28-data-persistence-verification.png)
+![Persistance des données](screenshots/28-data-persistence-verification.png.jpg)
 
-![Résilience API](screenshots/29-api-pod-resilience.png)
+![Résilience API](screenshots/29-api-pod-resilience.png.jpg)
 
 ### Phase 8 — Sauvegarde planifiée
 
@@ -320,13 +309,13 @@ Exécution d'un Job de test et vérification de l'état des Pods ainsi que des d
 
 **Preuves présentes dans le rapport :**
 
-![Configuration PVC et CronJob](screenshots/30-backup-pvc-cronjob-yaml.png)
+![Configuration PVC et CronJob](screenshots/30-backup-pvc-cronjob-yaml.png.jpg)
 
-![Application du Job](screenshots/31-backup-job-application.png)
+![Application du Job](screenshots/31-backup-job-application.png.jpg)
 
-![Vérification du Job](screenshots/32-backup-job-verification.png)
+![Vérification du Job](screenshots/32-backup-job-verification.png.jpg)
 
-![Vérification PostgreSQL](screenshots/33-postgresql-backup-data-check.png)
+![Vérification PostgreSQL](screenshots/33-postgresql-backup-data-check.png.jpg)
 
 ### Phase 9 — RBAC et ServiceAccounts
 
@@ -336,17 +325,17 @@ Vérification des droits d'accès du compte `dev-viewer` et modification des man
 
 **Preuves :**
 
-![ServiceAccounts](screenshots/34-serviceaccounts-creation.png)
+![ServiceAccounts](screenshots/34-serviceaccounts-creation.png.jpg)
 
-![Role et RoleBinding](screenshots/35-rbac-role-rolebinding-yaml.png)
+![Role et RoleBinding](screenshots/35-rbac-role-rolebinding-yaml.png.jpg)
 
-![Application RBAC](screenshots/36-rbac-configuration-application.png)
+![Application RBAC](screenshots/36-rbac-configuration-application.png.jpg)
 
 ![Vérification RBAC](screenshots/37-rbac-permissions-verification.png)
 
-![Modification des Deployments](screenshots/38-serviceaccount-deployments-update.png)
+![Modification des Deployments](screenshots/38-serviceaccount-deployments-update.png.jpg)
 
-![Test du jeton](screenshots/39-serviceaccount-token-test.png)
+![Test du jeton](screenshots/39-serviceaccount-token-test.png.jpg)
 
 ### Phase 10 — Durcissement et NetworkPolicies
 
@@ -358,61 +347,13 @@ Validation du fonctionnement final de l'application.
 
 **Preuves :**
 
-![Désactivation du jeton](screenshots/40-serviceaccount-token-disabled.png)
+![Désactivation du jeton](screenshots/40-serviceaccount-token-disabled.png.jpg)
 
-![Test NetworkPolicy](screenshots/41-networkpolicy-connectivity-test.png)
+![Test NetworkPolicy](screenshots/41-networkpolicy-connectivity-test.png.jpg)
 
-![SecurityContext](screenshots/42-securitycontext-verification.png)
+![SecurityContext](screenshots/42-securitycontext-verification.png.jpg)
 
-![Validation finale](screenshots/43-final-application-validation.png)
-
----
-
-## 5. Vérification générale
-
-Commandes utilisées pour contrôler les ressources Kubernetes :
-
-```powershell
-kubectl get nodes
-
-kubectl get namespaces
-
-kubectl get pods -n miniproj2
-
-kubectl get services -n miniproj2
-
-kubectl get deployments -n miniproj2
-
-kubectl get statefulsets -n miniproj2
-
-kubectl get pvc -n miniproj2
-
-kubectl get ingress -n miniproj2
-
-kubectl get networkpolicies -n miniproj2
-```
-
----
-
-## 6. Correspondance avec les exigences du sujet
-
-| Exigence | Description | Phase |
-|---|---|---|
-| E1 | Images Docker versionnées et publiées | 1 |
-| E2 | Namespace, ResourceQuota et LimitRange | 2 |
-| E3 | ConfigMap et Secret | 3 |
-| E4 | Protection des Secrets dans Git | 3 |
-| E5 | StatefulSet et Service Headless | 4 |
-| E6 | Persistance des données | 7 |
-| E7 | Démarrage et disponibilité de l'API | 5 |
-| E8 | Gestion des ressources | 2 et 5 |
-| E9 | Readiness et Liveness Probes | 5 |
-| E10 | Exposition avec Ingress | 6 |
-| E11 | Sauvegarde planifiée | 8 |
-| E12 | RBAC et ServiceAccounts | 9 |
-| E13 | Durcissement des Pods | 10 |
-| E14 | NetworkPolicies | 10 |
-| E15 | Organisation du dépôt Git | Ensemble du projet |
+![Validation finale](screenshots/43-final-application-validation.png.jpg)
 
 ---
 
