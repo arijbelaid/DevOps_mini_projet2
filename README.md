@@ -1,3 +1,4 @@
+ <div align="center">
 # 🚀 Mini-Projet 2 — Application 3-Tiers Sécurisée et Persistante
 
 ### Déploiement et sécurisation avec Kubernetes (k3s)
